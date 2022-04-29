@@ -68,19 +68,25 @@ def ScoreToMidi(sc, filename):
     param = GetParam('1=C 120bpm')
     st_time = 0
     pitch = []
-    for line in sc.split('\n'):
-        new_param = GetParam(line)
-        if new_param != {}:
+    lines = ''
+    sc_split = sc.split('\n')
+    is_param = [GetParam(line) != {} for line in sc_split] + [True]
+
+    for i in range(len(sc_split)):
+        if is_param[i]:
+            new_param = GetParam(sc_split[i])
             for key, value in new_param.items():
                 param[key] = value
         else:
-            pit = GetAbs(GetRel(line), param)
-            pit = [[tr, pit, st + st_time, time] for tr, pit, st, time in pit]
-            st_time = pit[-1][2] + pit[-1][3]
-            pitch += pit
+            lines += sc_split[i]
+            if is_param[i+1]:
+                pit = GetAbs(GetRel(lines), param)
+                pit = [[tr, pit, st + st_time, time] for tr, pit, st, time in pit]
+                st_time = pit[-1][2] + pit[-1][3]
+                pitch += pit
+                lines = 0
 
     pitch = [[tr, pit, st, time] for tr, pit, st, time in pitch if 0 <= pit <= 127]
-
     n_track = max([track for track, _, _, _ in pitch]) + 1
     track_note = [[note for note in pitch if note[0] == i] for i in range(n_track)]
 
