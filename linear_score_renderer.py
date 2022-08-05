@@ -84,7 +84,7 @@ def ScoreToMidi(sc, filename):
                 pit = [[tr, pit, st + st_time, time] for tr, pit, st, time in pit]
                 st_time = pit[-1][2] + pit[-1][3]
                 pitch += pit
-                lines = 0
+                lines = ''
 
     pitch = [[tr, pit, st, time] for tr, pit, st, time in pitch if 0 <= pit <= 127]
     n_track = max([track for track, _, _, _ in pitch]) + 1
