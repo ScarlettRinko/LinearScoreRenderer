@@ -8,7 +8,7 @@ def midi_to_wav(filename, outname):
     ex.wait()
 
 if __name__ == '__main__':
-    with open('src/assets/template/flower_dance.txt') as f:
+    with open('src/assets/template/canon.txt') as f:
         sc = f.read()
     LinearScore(sc).midi_file.save('output.mid')
     midi_to_wav('output.mid', 'output.wav')
