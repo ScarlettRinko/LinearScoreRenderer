@@ -9,7 +9,7 @@ from assets.note_line import NoteLine
 class LinearScore():
     def __init__(self, score: str) -> None:
         self.score = score
-        self.track_notes: list[AbsoluteNote] = []
+        self.track_notes: list[list[AbsoluteNote]] = []
         self.midi_file: MidiFile = MidiFile()
         self._analyze_score()
         self._get_midi()

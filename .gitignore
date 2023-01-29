@@ -1,3 +1,6 @@
 output.*
 __pycache__*
 test*
+
+fluidsynth
+soundfont.sf2
